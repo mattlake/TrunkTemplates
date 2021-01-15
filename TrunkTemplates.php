@@ -12,7 +12,7 @@ class TrunkTemplates
         $template_file = 'Views/' . $this->templateFile;
         if (file_exists($template_file) && is_readable($template_file)) {
             $path = $template_file;
-        } elseif (file_exists($default_file = 'Views/default.inc') && is_readable($default_file)) {
+        } elseif (file_exists($default_file = 'Views/default.mj') && is_readable($default_file)) {
             $path = $default_file;
         } else {
             throw new Exception('No default template found');
