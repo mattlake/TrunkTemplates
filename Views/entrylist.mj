@@ -11,7 +11,7 @@
   
 // This is the main entry loop
 {*loop*}
-<li><a href="{*url*}">{*title*}</a> (published on {*site*})</li>
+<li><a href="{*url*}">{*title*}</a> (published on {*site*}) {* data['html'] *}</li>
 {*/loop*} 
   
 </ol><!-- end #entry-list -->

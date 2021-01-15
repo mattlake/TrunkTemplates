@@ -4,6 +4,17 @@ Trunk Templates is a lightweight view templating system for PHP.
 
 - PHP7.4+
 
+## Usage
+
+$t = new TrunkTemplates\Template();
+
+## Configuration
+
+### Set base views directory
+Trunk Templates will set a default views directory of '/views/', this can be changed using setViewsDir():
+
+$t->setViewsDir('/resource/views/');
+
 # Syntax
 ## Variables
 
