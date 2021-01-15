@@ -10,7 +10,8 @@
 <ol id="entry-list"> 
   
 // This is the main entry loop
-{loop} <li><a href="{url}">{title}</a> (published on {site})</li>
-{/loop} 
+{*loop*}
+<li><a href="{*url*}">{*title*}</a> (published on {*site*})</li>
+{*/loop*} 
   
 </ol><!-- end #entry-list -->

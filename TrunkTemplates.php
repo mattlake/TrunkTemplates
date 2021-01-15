@@ -30,23 +30,23 @@ class TrunkTemplates
         $template = preg_replace($comment_pattern, NULL, $template);
 
         //Extract the main entry loop from the file
-        $pattern = '#.*{loop}(.*?){/loop}.*#is';
+        $pattern = '#.*{\*loop\*}(.*?){\*/loop\*}.*#is';
         $entry_template = preg_replace($pattern, "$1", $template);
 
         //Extract the header from the template if one exists
-        $header = trim(preg_replace('/^(.*)?{loop.*$/is', "$1", $template));
+        $header = trim(preg_replace('/^(.*)?{\*loop.*$/is', "$1", $template));
         if ($header === $template) {
             $header = NULL;
         }
 
         //Extract the footer from the template if one exists
-        $footer = trim(preg_replace('#^.*?{/loop}(.*)$#is', "$1", $template));
+        $footer = trim(preg_replace('#^.*?{\*/loop\*}(.*)$#is', "$1", $template));
         if ($footer === $template) {
             $footer = NULL;
         }
 
         //Define a regex to match any template tag
-        $tag_pattern = '/{(\w+)}/';
+        $tag_pattern = '/{\*(\w+)\*}/';
 
         //Curry the function that will replace the tags with entry data
         $callback = $this->_curry('TrunkTemplates::replace_tags', 2);
@@ -68,9 +68,6 @@ class TrunkTemplates
             }
         }
 
-        //TODO: Return the formatted entries with the header and footer
-
-        // TEMPORARY: return the template after comment removal
         return $header . $markup . $footer;
     }
 
