@@ -7,7 +7,7 @@ Trunk Templates is a lightweight view templating system for PHP.
 ## Usage
 ```php
 $t = new TrunkTemplates\Template();
-```php
+```
 
 ## Configuration
 
@@ -28,6 +28,6 @@ The syntax for template variables is:
 Array can be iterated through with the following syntax:
 ```php
 {* :foreach($array as $item)}
-// Template to be parsed
+    {* item *}
 {* :endforeach *}
 ```
