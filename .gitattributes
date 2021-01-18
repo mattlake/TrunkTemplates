@@ -1,2 +1,2 @@
 # Assign .mj to Template file
-*.mj linguist-language=TemplateFile
+*.mj linguist-language=PHP

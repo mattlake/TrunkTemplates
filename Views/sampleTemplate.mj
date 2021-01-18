@@ -25,3 +25,11 @@ Result when trying to parse an array as a string:</p>
 {* :foreach(assoc as key => value) *}
     <p>{* key *} has value {* value *}</p>
 {* :endforeach *}
+
+<h3>Object Syntax</h3>
+Object properties can be called using the following syntax:
+object->name
+<p>Object->name: {* object->name *}</p>
+<p>Object->age: {* object->age *}</p>
+
+

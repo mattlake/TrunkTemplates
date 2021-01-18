@@ -14,6 +14,9 @@ require_once './Template.php';
 $t = new TrunkTemplates\Template();
 
 $template = 'sampleTemplate';
+$testObject = new stdClass();
+$testObject->name = 'This is the property name';
+$testObject->age = 37;
 $data = [
     'title' => 'Sample Template Usage',
     'string' => 'this is a string',
@@ -22,6 +25,7 @@ $data = [
     'users' => ['David', 'John', 'Mary', 'Christine'],
     'orgs' => ['google', 'apple', 'Microsoft'],
     'assoc' => ['name' => 'Matthew', 'age' => 37],
+    'object' => $testObject,
 ];
 
 

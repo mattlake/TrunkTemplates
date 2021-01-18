@@ -10,6 +10,7 @@ class Template
     private string $fileExtension = '.mj';
     private string $tagPattern = '/{\*\s*(\w+)\s*\*}/';
     private string $methodPattern = '/{\*\s*:(\w+)\((.*?)\)\s*\*}\s*(.*)\s*{\*\s*:(end\w+)\s\*}/';
+    private string $objectPattern = '/{\*\s*(\w+)(?:->)(\w+)\(?(.*?)\)?\s+\*}/';
     private array $data = [];
 
     public function __construct()
@@ -46,6 +47,7 @@ class Template
         //Load template
         $tpl = $this->getTemplate($template);
 
+        // Parse Template
         $tpl = $this->parse($tpl);
 
         echo $tpl;
@@ -63,8 +65,12 @@ class Template
             $tpl = $this->parseMethods($methodData, $tpl);
         };
 
-        // If printable then replace string
+        // Do we have any objects?
+        if (preg_match_all($this->objectPattern, $tpl, $objectMatches)) {
+            $tpl = $this->handleObjects($objectMatches, $tpl);
+        }
 
+        // If printable then replace string
         $tpl = $this->parseVariables($tpl, $data);
 
         return $tpl;
@@ -171,5 +177,19 @@ class Template
         }
 
         return $parsed;
+    }
+
+    private function handleObjects($data, $tpl)
+    {
+        preg_match_all($this->objectPattern, $tpl, $matches);
+        $tally = count($matches[0]);
+
+        for ($i = 0; $i < $tally; $i++) {
+            $objName = $matches[1][$i];
+            $objProp = $matches[2][$i];
+            $tpl = str_replace($matches[0][$i], $this->data[$objName]->$objProp, $tpl);
+        }
+
+        return $tpl;
     }
 }

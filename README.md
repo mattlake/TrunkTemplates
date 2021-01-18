@@ -62,3 +62,11 @@ Associative arrays can be iterated through with the following syntax:
     {* key *} has a vlue of {* value *}
 {* :endforeach *}
 ```
+
+### Object Syntax
+
+Object properties can be called using the following syntax:
+
+```php
+{* object->name *}
+```
