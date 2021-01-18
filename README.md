@@ -16,10 +16,25 @@ $t->setViewsDir('/resource/views/');
 
 ## Syntax
 
-## Usage
+### Usage
 
 ```php
+// Create Template instance
 $t = new TrunkTemplates\Template();
+
+// Create data array to be passed to view
+$data = [
+    'title' => 'Sample Template Usage',
+    'string' => 'this is a string',
+    'int' => 4,
+    'array' => ['item1', 'item2', 'item3'],
+    'users' => ['David', 'John', 'Mary', 'Christine'],
+    'orgs' => ['google', 'apple', 'Microsoft'],
+    'assoc' => ['name' => 'Matthew', 'age' => 37],
+];
+
+// Render the view
+$t->render('sampleTemplate, $data);
 ```
 
 ### Variables
