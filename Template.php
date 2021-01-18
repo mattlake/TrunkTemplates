@@ -187,7 +187,14 @@ class Template
         for ($i = 0; $i < $tally; $i++) {
             $objName = $matches[1][$i];
             $objProp = $matches[2][$i];
-            $tpl = str_replace($matches[0][$i], $this->data[$objName]->$objProp, $tpl);
+            if (!empty($matches[3][$i])) {
+                // We have a method call
+                // TODO enable type checks in arguments 
+                $args = explode(',', $matches[3][$i]);
+                $tpl = str_replace($matches[0][$i], $this->data[$objName]->$objProp(...$args), $tpl);
+            } else {
+                $tpl = str_replace($matches[0][$i], $this->data[$objName]->$objProp, $tpl);
+            }
         }
 
         return $tpl;

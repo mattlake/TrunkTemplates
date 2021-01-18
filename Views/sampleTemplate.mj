@@ -29,7 +29,9 @@ Result when trying to parse an array as a string:</p>
 <h3>Object Syntax</h3>
 Object properties can be called using the following syntax:
 object->name
-<p>Object->name: {* object->name *}</p>
-<p>Object->age: {* object->age *}</p>
+<p>post->title: {* post->title *}</p>
+<p>post->author: {* post->author *}</p>
+Object properties can be called using the following syntax:
+<p>post->add(3,2): {* post->add(2,3) *}</p>
 
 

@@ -70,3 +70,9 @@ Object properties can be called using the following syntax:
 ```php
 {* object->name *}
 ```
+
+Object methods can be called using the following syntax:
+
+```php
+{* object->add(3,2) *}
+```

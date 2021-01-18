@@ -10,13 +10,12 @@
 // echo $template->generateMarkup();
 
 require_once './Template.php';
+require_once './Models/BlogPosts.php';
 
 $t = new TrunkTemplates\Template();
+$post = new BlogPost();
 
 $template = 'sampleTemplate';
-$testObject = new stdClass();
-$testObject->name = 'This is the property name';
-$testObject->age = 37;
 $data = [
     'title' => 'Sample Template Usage',
     'string' => 'this is a string',
@@ -25,7 +24,7 @@ $data = [
     'users' => ['David', 'John', 'Mary', 'Christine'],
     'orgs' => ['google', 'apple', 'Microsoft'],
     'assoc' => ['name' => 'Matthew', 'age' => 37],
-    'object' => $testObject,
+    'post' => $post,
 ];
 
 
