@@ -5,23 +5,29 @@ Trunk Templates is a lightweight view templating system for PHP.
 - PHP7.4+
 
 ## Usage
-
+```php
 $t = new TrunkTemplates\Template();
+```php
 
 ## Configuration
 
 ### Set base views directory
 Trunk Templates will set a default views directory of '/views/', this can be changed using setViewsDir():
-
+```php
 $t->setViewsDir('/resource/views/');
+```
 
 # Syntax
 ## Variables
 
-The syntax for template variables is {* variable *}
-
+The syntax for template variables is:
+```php
+{* variable *}
+```
 ## Arrays
 Array can be iterated through with the following syntax:
+```php
 {* :foreach($array as $item)}
 // Template to be parsed
 {* :endforeach *}
+```
