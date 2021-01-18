@@ -27,7 +27,7 @@ The syntax for template variables is:
 ## Arrays
 Array can be iterated through with the following syntax:
 ```php
-{* :foreach($array as $item)}
+{* :foreach($array as $item) *}
     {* item *}
 {* :endforeach *}
 ```
