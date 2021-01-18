@@ -21,6 +21,7 @@ $data['int'] = 4;
 $data['array'] = ['item1', 'item2', 'item3'];
 $data['users'] = ['David', 'John', 'Mary', 'Christine'];
 $data['orgs'] = ['google', 'apple', 'Microsoft'];
+$data['assoc'] = ['name' => 'Matthew', 'age' => 37];
 
 
 $t->render($template, $data);

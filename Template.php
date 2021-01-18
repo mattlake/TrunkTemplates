@@ -9,7 +9,7 @@ class Template
     private string $viewsDir = 'Views/';
     private string $fileExtension = '.mj';
     private string $tagPattern = '/{\*\s*(\w+)\s*\*}/';
-    private string $methodPattern = '/{\*\s*:(\w+)\((.*?)\)\s*\*}\s*(.*)\s*{\*\s*:(end\w+)\s*}/';
+    private string $methodPattern = '/{\*\s*:(\w+)\((.*?)\)\s*\*}\s*(.*)\s*{\*\s*:(end\w+)\s\*}/';
     private array $data = [];
 
     public function __construct()
@@ -57,7 +57,6 @@ class Template
     private function parse($tpl, $data = null)
     {
         $data = $data ?? $this->data;
-
 
         // If Method, call method sending the 'body from between the tags'
         if (preg_match_all($this->methodPattern, $tpl, $methodData)) {
@@ -152,14 +151,23 @@ class Template
 
     private function _foreach($args, $body)
     {
-        preg_match('/(\w+)\s+as\s+(\w+)/', $args, $argsMatches);
+        preg_match('/(\w+)\s+as\s+(\w+)\s*(?:=>)?\s*(\w+)?/', $args, $argsMatches);
 
         $iterable = $argsMatches[1];
         $item = $argsMatches[2];
+        $value = $argsMatches[3] ?? null;
         $parsed = '';
 
-        foreach ($this->data[$iterable] as $v) {
-            $parsed .= $this->parse($body, [$item => $v]);
+        if (!isset($value)) {
+            // Indexed array
+            foreach ($this->data[$iterable] as $v) {
+                $parsed .= $this->parse($body, [$item => $v]);
+            }
+        } else {
+            // Assoc Array
+            foreach ($this->data[$iterable] as $k => $v) {
+                $parsed .= $this->parse($body, [$item => $k, $value => $v]);
+            }
         }
 
         return $parsed;

@@ -27,7 +27,13 @@ The syntax for template variables is:
 ## Arrays
 Array can be iterated through with the following syntax:
 ```php
-{* :foreach($array as $item) *}
-    {* item *}
+{* :foreach(array as value) *}
+    {* value *}
 {* :endforeach *}
 ```
+
+Associative arrays can be iterated through with the following syntax:
+```php
+{* :foreach(AssocArray as key => value) *}
+    {* key *} has a vlue of {* value *}
+{* :endforeach *}

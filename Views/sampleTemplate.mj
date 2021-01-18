@@ -14,10 +14,14 @@ Result when trying to parse an array as a string:</p>
 <ul>
     {* :foreach(users as user) *}
         <li>{* user *}</li>
-    {* :endforeach }
+    {* :endforeach *}
 </ul>
 <ul>
     {* :foreach(orgs as org) *}
         <li>{* org *}</li>
-    {* :endforeach }
+    {* :endforeach *}
 </ul>
+<h3>Associative Array</h3>
+{* :foreach(assoc as key => value) *}
+    <p>{* key *} has value {* value *}</p>
+{* :endforeach *}
