@@ -18,6 +18,9 @@ $data = [];
 $data['title'] = 'Sample Template Usage';
 $data['string'] = 'this is a string';
 $data['int'] = 4;
+$data['array'] = ['item1', 'item2', 'item3'];
+$data['users'] = ['David', 'John', 'Mary', 'Christine'];
+$data['orgs'] = ['google', 'apple', 'Microsoft'];
 
 
 $t->render($template, $data);

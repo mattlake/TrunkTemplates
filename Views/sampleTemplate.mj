@@ -5,3 +5,19 @@
 
 <h3>Integer Changes</h3>
 {* int *}
+
+<h3>Array</h3>
+<p>
+Result when trying to parse an array as a string:</p>
+{* array *}
+<p>When iterating through an array</p>
+<ul>
+    {* :foreach(users as user) *}
+        <li>{* user *}</li>
+    {* :endforeach }
+</ul>
+<ul>
+    {* :foreach(orgs as org) *}
+        <li>{* org *}</li>
+    {* :endforeach }
+</ul>
