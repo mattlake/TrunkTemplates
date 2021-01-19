@@ -191,6 +191,8 @@ class Template
                 // We have a method call
                 // TODO enable type checks in arguments 
                 $args = explode(',', $matches[3][$i]);
+                $this->parseArgs($args, $this->data[$objName], $objProp);
+
                 $tpl = str_replace($matches[0][$i], $this->data[$objName]->$objProp(...$args), $tpl);
             } else {
                 $tpl = str_replace($matches[0][$i], $this->data[$objName]->$objProp, $tpl);
@@ -198,5 +200,21 @@ class Template
         }
 
         return $tpl;
+    }
+
+    private function parseArgs(&$args, $class, $method)
+    {
+        $reflector = new \ReflectionClass($class);
+        $params = $reflector->getMethod($method)->getParameters();
+        $newArgs = [];
+
+        for ($i = 0; $i < count($params); $i++) {
+            $name = $params[$i]->getName();
+
+            if ($params[$i]->getType()) {
+                $type =  $params[$i]->getType()->getName();
+                settype($args[$i], $type);
+            }
+        }
     }
 }
