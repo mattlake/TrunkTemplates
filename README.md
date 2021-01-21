@@ -76,3 +76,17 @@ Object methods can be called using the following syntax:
 ```php
 {* object->add(3,2) *}
 ```
+
+### Conditionals
+
+If, else and elseif statments can be used with the following syntax:
+
+```php
+{* :if(x == y)*}
+    {* ifString *}
+{* :elseif(x === z)}
+    {* elseifString *}
+{* :else}
+    {* fallbackString **}
+{* :endif *}
+```
