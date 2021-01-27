@@ -12,6 +12,7 @@ class Template
     private string $methodPattern = '/{\*\s*:(\w+)\((.*?)\)\s*\*}\s*(.*)\s*{\*\s*:(end\w+)\s\*}/';
     private string $objectPattern = '/{\*\s*(\w+)(?:->)(\w+)\(?(.*?)\)?\s+\*}/';
     private array $data = [];
+    private string $forEachPattern = '/{\*\s*:foreach\((.*?)\)\s\*}(.*?){\*\s*:endforeach\s\*}/';
 
     public function __construct()
     {
@@ -56,14 +57,9 @@ class Template
 
     // Recursive parse method
 
-    private function parse($tpl, $data = null)
+    public function parse($tpl, $data = null)
     {
         $data = $data ?? $this->data;
-
-        // If Method, call method sending the 'body from between the tags'
-        if (preg_match_all($this->methodPattern, $tpl, $methodData)) {
-            $tpl = $this->parseMethods($methodData, $tpl);
-        };
 
         // Do we have any objects?
         if (preg_match_all($this->objectPattern, $tpl, $objectMatches)) {
@@ -112,30 +108,6 @@ class Template
         return (bool) preg_match($pattern, $haystack);
     }
 
-    private function parseMethods(array $methodData, $tpl)
-    {
-        $count = count($methodData[0]);
-        for ($i = 0; $i < $count; $i++) {
-            $methodName = '_' . $methodData[1][$i];
-            $methodArgs = $methodData[2][$i];
-            $methodBody = $methodData[3][$i];
-
-            // Does method exist?
-            if (!method_exists($this, $methodName)) {
-                throw new \Exception('Method does not exist');
-            }
-
-            // Call Method
-            $res = $this->$methodName($methodArgs, $methodBody);
-            $pattern = $methodData[0][$i];
-
-            // Update $tpl
-            $tpl = str_replace($methodData[0][$i], $res, $tpl);
-        }
-
-        return $tpl;
-    }
-
     private function parseVariables($tpl, $data): string
     {
         $vars = preg_match_all($this->tagPattern, $tpl, $matches);
@@ -153,30 +125,6 @@ class Template
             }
         }
         return $tpl;
-    }
-
-    private function _foreach($args, $body)
-    {
-        preg_match('/(\w+)\s+as\s+(\w+)\s*(?:=>)?\s*(\w+)?/', $args, $argsMatches);
-
-        $iterable = $argsMatches[1];
-        $item = $argsMatches[2];
-        $value = $argsMatches[3] ?? null;
-        $parsed = '';
-
-        if (!isset($value)) {
-            // Indexed array
-            foreach ($this->data[$iterable] as $v) {
-                $parsed .= $this->parse($body, [$item => $v]);
-            }
-        } else {
-            // Assoc Array
-            foreach ($this->data[$iterable] as $k => $v) {
-                $parsed .= $this->parse($body, [$item => $k, $value => $v]);
-            }
-        }
-
-        return $parsed;
     }
 
     private function handleObjects($data, $tpl)

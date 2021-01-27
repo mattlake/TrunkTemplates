@@ -38,11 +38,11 @@ Object properties can be called using the following syntax:
 <h3>Conditionals</h3>
 If, else and elseif statments can be used with the following syntax:
 <p>
-    {* :if(x == y)*}
+    {* :if(x == y) *}
         {* ifString *}
-    {* :elseif(x === z)}
+    {* :elseif(x === z) *}
         {* elseifString *}
-    {* :else}
-        {* fallbackString **}
+    {* :else *}
+        {* fallbackString *}
     {* :endif *}
 </p>
