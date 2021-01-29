@@ -9,7 +9,7 @@ class Template
     private string $viewsDir = 'Views/';
     private string $fileExtension = '.mj';
     private string $tagPattern = '/{\*\s*(\w+)\s*\*}/';
-    private string $methodPattern = '/{\*\s*:(\w+)\((.*?)\)\s*\*}\s*(.*)\s*{\*\s*:(end\w+)\s\*}/';
+
     private string $objectPattern = '/{\*\s*(\w+)(?:->)(\w+)\(?(.*?)\)?\s+\*}/';
     private array $data = [];
     private string $forEachPattern = '/{\*\s*:foreach\((.*?)\)\s\*}(.*?){\*\s*:endforeach\s\*}/';
@@ -61,12 +61,14 @@ class Template
     {
         $data = $data ?? $this->data;
 
-        // Do we have any objects?
-        if (preg_match_all($this->objectPattern, $tpl, $objectMatches)) {
-            $tpl = $this->handleObjects($objectMatches, $tpl);
-        }
+        $this->parseMethods($tpl, $data);
 
-        // If printable then replace string
+        // Do we have any objects?
+        // if (preg_match_all($this->objectPattern, $tpl, $objectMatches)) {
+        //     $tpl = $this->handleObjects($objectMatches, $tpl);
+        // }
+
+        // // If printable then replace string
         $tpl = $this->parseVariables($tpl, $data);
 
         return $tpl;
@@ -163,6 +165,18 @@ class Template
                 $type =  $params[$i]->getType()->getName();
                 settype($args[$i], $type);
             }
+        }
+    }
+
+    private function parsemethods(&$tpl, $data)
+    {
+        $pattern = '/\B{\*\s:(\w+)(\((.*?)\))\s*\*}(.*?){\*\s*:end(\1)\s*\*}/s';
+        preg_match_all($pattern, $tpl, $match);
+        for ($i = 0; $i < count($match[0]); $i++) {
+            $func = $match[1][$i];
+            $args = $match[2][$i];
+            $body = $match[3][$i];
+            echo "<p>Found Method $func with arguments $args and a body of $body</p>";
         }
     }
 }
