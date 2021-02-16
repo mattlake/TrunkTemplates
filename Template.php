@@ -15,6 +15,11 @@ class Template
     {
         $pattern = \Trunk\Template\src\Patterns::get('string');
         preg_match($pattern, $template, $matches);
+
+        if (empty($matches)) {
+            return $template;
+        }
+
         if (!array_key_exists($matches[1], $data)) {
             return $template;
         }
