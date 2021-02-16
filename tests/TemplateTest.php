@@ -15,7 +15,7 @@ it('can translate string', function () {
     ];
 
     $template = new \Trunk\Template();
-    $result = $template->translateString($placeholder, $data);
+    $result = $template->translateStrings($placeholder, $data);
 
     expect($result)->toBe($expected);
 });
@@ -28,7 +28,7 @@ it('can translate string with zero spaces in tag', function () {
     ];
 
     $template = new \Trunk\Template();
-    $result = $template->translateString($placeholder, $data);
+    $result = $template->translateStrings($placeholder, $data);
 
     expect($result)->toBe($expected);
 });
@@ -41,7 +41,7 @@ it('can translate string with multiple spaces spaces in tag', function () {
     ];
 
     $template = new \Trunk\Template();
-    $result = $template->translateString($placeholder, $data);
+    $result = $template->translateStrings($placeholder, $data);
 
     expect($result)->toBe($expected);
 });
@@ -54,7 +54,7 @@ it('can translate tag with paragraph of text', function () {
     ];
 
     $template = new \Trunk\Template();
-    $result = $template->translateString($placeholder, $data);
+    $result = $template->translateStrings($placeholder, $data);
 
     expect($result)->toBe($expected);
 });
@@ -66,7 +66,7 @@ it('returns template if no tags are found', function () {
     ];
 
     $template = new \Trunk\Template();
-    $result = $template->translateString($placeholder, $data);
+    $result = $template->translateStrings($placeholder, $data);
 
     expect($result)->toBe($placeholder);
 });
@@ -76,7 +76,36 @@ it('returns template if there is no matching replacement', function () {
     $data = ['number' => 123];
 
     $template = new \Trunk\Template();
-    $result = $template->translateString($placeholder, $data);
+    $result = $template->translateStrings($placeholder, $data);
 
     expect($result)->toBe($placeholder);
+});
+
+it('can translate multiple translations in string', function () {
+    $template = '{* city *} is the capital of {* country *}';
+    $data = [
+        'city' => 'Paris',
+        'country' => 'France'
+    ];
+
+    $expected = 'Paris is the capital of France';
+
+    $t = new \Trunk\Template();
+    $result = $t->parse($template, $data);
+
+    expect($result)->toBe($expected);
+});
+
+it('can translate multiple instances of same string in string', function () {
+    $template = '{* city *} {* city *} {* city *}';
+    $data = [
+        'city' => 'Paris',
+    ];
+
+    $expected = 'Paris Paris Paris';
+
+    $t = new \Trunk\Template();
+    $result = $t->parse($template, $data);
+
+    expect($result)->toBe($expected);
 });

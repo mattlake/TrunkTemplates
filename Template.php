@@ -11,18 +11,30 @@ class Template
         // TODO create method
     }
 
-    public function translateString(string $template, array $data): string
+    public function translateStrings(string $template, array $data): string
     {
         $pattern = \Trunk\Template\src\Patterns::get('string');
-        preg_match($pattern, $template, $matches);
+        preg_match_all($pattern, $template, $matches);
 
         if (empty($matches)) {
             return $template;
         }
 
-        if (!array_key_exists($matches[1], $data)) {
-            return $template;
+        for ($i = 0; $i < count($matches[0]); $i++) {
+            if (array_key_exists($matches[1][$i], $data)) {
+                $template = str_replace($matches[0][$i], $data[$matches[1][$i]], $template);
+            }
         }
-        return $data[$matches[1]];
+
+        return $template;
+    }
+
+    public function parse(string $template, array $data): string
+    {
+        // Translate strings
+        $template = $this->translateStrings($template, $data);
+
+        // Return result
+        return $template;
     }
 }
