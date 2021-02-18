@@ -6,6 +6,7 @@ class Patterns
 {
     private static array $patterns = [
         'string' => '/{\*\s*(\w+)\s*\*}/',
+        'singleLineComment' => '/\/\/(.*?)[\r\n|\r|\n]/',
     ];
 
     public static function all(): array

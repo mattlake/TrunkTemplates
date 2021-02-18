@@ -1,5 +1,7 @@
 <?php
 
+use Trunk\Template;
+
 require_once __DIR__ . '/../Template.php';
 
 it('can be initiated', function () {
@@ -121,5 +123,23 @@ it('ignores HTML comments', function () {
     $t = new \Trunk\Template();
     $result = $t->parse($template, $data);
 
+    expect($result)->toBe($expected);
+});
+
+it('removes single line comments from returned template', function () {
+    $template = <<<EOD
+    This code should show
+    // this line should be removed
+    This should say {*city*}
+    EOD;
+    $data = ['city' => 'London'];
+
+    $expected = <<<EOD
+    This code should show
+    This should say London
+    EOD;
+
+    $t = new \Trunk\Template();
+    $result = $t->parse($template, $data);
     expect($result)->toBe($expected);
 });

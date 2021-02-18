@@ -11,6 +11,12 @@ class Template
         // TODO create method
     }
 
+    public function removeComments(string $template): string
+    {
+        $pattern = \Trunk\Template\src\Patterns::get('singleLineComment');
+        return preg_replace($pattern, '', $template);
+    }
+
     public function translateStrings(string $template, array $data): string
     {
         $pattern = \Trunk\Template\src\Patterns::get('string');
@@ -31,6 +37,9 @@ class Template
 
     public function parse(string $template, array $data): string
     {
+        // Remove PHP Comments
+        $template = $this->removeComments($template);
+
         // Translate strings
         $template = $this->translateStrings($template, $data);
 
