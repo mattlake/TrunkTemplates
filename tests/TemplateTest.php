@@ -109,3 +109,17 @@ it('can translate multiple instances of same string in string', function () {
 
     expect($result)->toBe($expected);
 });
+
+it('ignores HTML comments', function () {
+    $template = '<!-- this is a comment -->';
+    $data = [
+        'city' => 'Paris',
+    ];
+
+    $expected = '<!-- this is a comment -->';
+
+    $t = new \Trunk\Template();
+    $result = $t->parse($template, $data);
+
+    expect($result)->toBe($expected);
+});
