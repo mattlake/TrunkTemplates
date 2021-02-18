@@ -10,6 +10,10 @@ it('fetches string pattern', function () {
     expect(\Trunk\Template\src\Patterns::get('string'))->toBe('/{\*\s*(\w+)\s*\*}/');
 });
 
+it('fetches comment pattern', function () {
+    expect(\Trunk\Template\src\Patterns::get('singleLineComment'))->toBe('/\/\/(.*?)[\r\n|\r|\n]/');
+});
+
 it('throws exception if called pattern does not exist', function () {
     \Trunk\Template\src\Patterns::get('sldkfj');
 })->throws(\Exception::class);
