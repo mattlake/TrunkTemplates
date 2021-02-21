@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . '/../TemplateLoader.php';
+require_once __DIR__ . '/../Template.php';
 
 use Trunk\Template\TemplateLoader;
 
@@ -55,4 +56,21 @@ it('returns raw contents of file', function () {
     $tl = new TemplateLoader();
     $tl->setTemplateDirectory(__DIR__ . '/templates');
     expect($tl->loadTemplate('simple.mj'))->toBe($expected);
+});
+
+it('correctly parses loaded template file with comments and simple variables', function () {
+    $expected = <<<EOD
+    <h1>This would be a title</h1>
+    <p>The capital of France is Paris</p>
+    EOD;
+    $data = ['country' => 'France', 'city' => 'Paris'];
+
+    $tl = new TemplateLoader();
+    $tl->setTemplateDirectory(__DIR__ . '/templates');
+    $template = $tl->loadTemplate('variable');
+
+    $t = new \Trunk\Template();
+    $result = $t->parse($template, $data);
+
+    expect($result)->toBe($expected);
 });
