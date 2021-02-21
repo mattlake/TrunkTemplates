@@ -38,3 +38,9 @@ it('formats the filename if necessary when loading a template', function () {
     $tl->setTemplateDirectory(__DIR__ . '/templates');
     expect($tl->loadTemplate('simple'))->toBeString();
 });
+
+it('can load templates in subdirectories when / seperated', function () {
+    $tl = new TemplateLoader();
+    $tl->setTemplateDirectory(__DIR__);
+    expect($tl->loadTemplate('./templates/simple'))->toBeString();
+});
