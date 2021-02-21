@@ -32,3 +32,9 @@ it('throws exception if template file is not found', function () {
     $tl->setTemplateDirectory(__DIR__ . '/templates');
     expect($tl->loadTemplate('kjsklfjkdlsjfdsmlkfjdsmjvjnv.mj'))->toBeString();
 })->throws(\Exception::class);;
+
+it('formats the filename if necessary when loading a template', function () {
+    $tl = new TemplateLoader();
+    $tl->setTemplateDirectory(__DIR__ . '/templates');
+    expect($tl->loadTemplate('simple'))->toBeString();
+});

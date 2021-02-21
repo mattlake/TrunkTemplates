@@ -21,7 +21,7 @@ class TemplateLoader
 
     public function loadTemplate(string $filename): string
     {
-        $file = file_get_contents($this->getTemplateDirectory() . $filename);
+        $file = file_get_contents($this->getTemplateDirectory() . UrlParser::formatTemplateFilename($filename));
         return $file;
     }
 }
