@@ -2,6 +2,8 @@
 
 namespace Trunk;
 
+require_once __DIR__ . '/UrlParser.php';
+
 class UrlParser
 {
     public static function formatTemplateDirectory(string $path): string
