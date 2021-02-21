@@ -1,0 +1,4 @@
+// Template to test file loading
+
+<h1>This is a simple template</h1>
+<p>It contains no variables that require parsing</p>

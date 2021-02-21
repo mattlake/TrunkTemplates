@@ -18,4 +18,10 @@ class TemplateLoader
     {
         return $this->templateDirectory;
     }
+
+    public function loadTemplate(string $filename): string
+    {
+        $file = file_get_contents($this->getTemplateDirectory() . $filename);
+        return $file;
+    }
 }

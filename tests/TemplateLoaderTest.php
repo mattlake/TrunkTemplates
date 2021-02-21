@@ -20,3 +20,15 @@ it('can get and set the template path and add missing trailing forward slash', f
     $tl->setTemplateDirectory('test');
     expect($tl->getTemplateDirectory())->toBe('test/');
 });
+
+it('can load fie with full filename', function () {
+    $tl = new TemplateLoader();
+    $tl->setTemplateDirectory(__DIR__ . '/templates');
+    expect($tl->loadTemplate('simple.mj'))->toBeString();
+});
+
+it('throws exception if template file is not found', function () {
+    $tl = new TemplateLoader();
+    $tl->setTemplateDirectory(__DIR__ . '/templates');
+    expect($tl->loadTemplate('kjsklfjkdlsjfdsmlkfjdsmjvjnv.mj'))->toBeString();
+})->throws(\Exception::class);;
