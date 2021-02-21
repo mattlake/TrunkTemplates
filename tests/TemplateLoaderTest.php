@@ -44,3 +44,15 @@ it('can load templates in subdirectories when / seperated', function () {
     $tl->setTemplateDirectory(__DIR__);
     expect($tl->loadTemplate('./templates/simple'))->toBeString();
 });
+
+it('returns raw contents of file', function () {
+    $expected = <<<EOD
+    // Template to test file loading
+
+    <h1>This is a simple template</h1>
+    <p>It contains no variables that require parsing</p>
+    EOD;
+    $tl = new TemplateLoader();
+    $tl->setTemplateDirectory(__DIR__ . '/templates');
+    expect($tl->loadTemplate('simple.mj'))->toBe($expected);
+});
