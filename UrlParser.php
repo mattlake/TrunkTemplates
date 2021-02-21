@@ -13,4 +13,13 @@ class UrlParser
         }
         return $path . '/';
     }
+
+    public static function formatTemplateFilename(string $filename): string
+    {
+        if (str_ends_with($filename, '.mj')) {
+            return $filename;
+        }
+
+        return $filename . '.mj';
+    }
 }
