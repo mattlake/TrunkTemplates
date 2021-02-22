@@ -7,6 +7,7 @@ class Patterns
     private static array $patterns = [
         'string' => '/{\*\s*\$(\w+)\s*\*}/',
         'singleLineComment' => '/\/\/(.*?)[\r\n|\r|\n]/',
+        'foreach' => '/{\*\s*foreach\s+\$(\w+)\s+as\s+\$(\w+)\s*\*}(.*?){\*\s*endforeach\s*\*}/s',
     ];
 
     public static function all(): array
