@@ -7,7 +7,7 @@ it('fetches all patterns', function () {
 });
 
 it('fetches string pattern', function () {
-    expect(\Trunk\Template\src\Patterns::get('string'))->toBe('/{\*\s*(\w+)\s*\*}/');
+    expect(\Trunk\Template\src\Patterns::get('string'))->toBe('/{\*\s*\$(\w+)\s*\*}/');
 });
 
 it('fetches comment pattern', function () {

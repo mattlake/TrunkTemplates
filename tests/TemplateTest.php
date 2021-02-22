@@ -10,7 +10,7 @@ it('can be initiated', function () {
 });
 
 it('can translate string', function () {
-    $placeholder = '{* string *}';
+    $placeholder = '{* $string *}';
     $expected = 'replaced';
     $data = [
         'string' => $expected,
@@ -23,7 +23,7 @@ it('can translate string', function () {
 });
 
 it('can translate string with zero spaces in tag', function () {
-    $placeholder = '{*string*}';
+    $placeholder = '{*$string*}';
     $expected = 'replaced';
     $data = [
         'string' => $expected,
@@ -36,7 +36,7 @@ it('can translate string with zero spaces in tag', function () {
 });
 
 it('can translate string with multiple spaces spaces in tag', function () {
-    $placeholder = '{*     string  *}';
+    $placeholder = '{*     $string  *}';
     $expected = 'replaced';
     $data = [
         'string' => $expected,
@@ -49,7 +49,7 @@ it('can translate string with multiple spaces spaces in tag', function () {
 });
 
 it('can translate tag with paragraph of text', function () {
-    $placeholder = '{* paragraph *}';
+    $placeholder = '{* $paragraph *}';
     $expected = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae magna non sapien accumsan cursus. Mauris vestibulum ut risus quis efficitur. Vestibulum sed elementum odio. Ut aliquet ante eu egestas elementum. Duis at sem quis elit commodo pellentesque sed vitae dui. Pellentesque vitae cursus augue. Aenean vitae est non orci euismod vestibulum. Sed ornare purus risus, id pharetra neque facilisis sit amet. Vivamus vitae iaculis augue. Donec eget laoreet tortor. Duis eu blandit neque. Praesent ornare viverra nulla, placerat posuere lorem pellentesque id. ';
     $data = [
         'paragraph' => $expected,
@@ -74,7 +74,7 @@ it('returns template if no tags are found', function () {
 });
 
 it('returns template if there is no matching replacement', function () {
-    $placeholder = '{* string *}';
+    $placeholder = '{* $string *}';
     $data = ['number' => 123];
 
     $template = new \Trunk\Template();
@@ -84,7 +84,7 @@ it('returns template if there is no matching replacement', function () {
 });
 
 it('can translate multiple translations in string', function () {
-    $template = '{* city *} is the capital of {* country *}';
+    $template = '{* $city *} is the capital of {* $country *}';
     $data = [
         'city' => 'Paris',
         'country' => 'France'
@@ -99,7 +99,7 @@ it('can translate multiple translations in string', function () {
 });
 
 it('can translate multiple instances of same string in string', function () {
-    $template = '{* city *} {* city *} {* city *}';
+    $template = '{* $city *} {* $city *} {* $city *}';
     $data = [
         'city' => 'Paris',
     ];
@@ -130,7 +130,7 @@ it('removes single line comments from returned template', function () {
     $template = <<<EOD
     This code should show
     // this line should be removed
-    This should say {*city*}
+    This should say {*\$city*}
     EOD;
     $data = ['city' => 'London'];
 

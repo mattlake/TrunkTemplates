@@ -5,7 +5,7 @@ namespace Trunk\Template\src;
 class Patterns
 {
     private static array $patterns = [
-        'string' => '/{\*\s*(\w+)\s*\*}/',
+        'string' => '/{\*\s*\$(\w+)\s*\*}/',
         'singleLineComment' => '/\/\/(.*?)[\r\n|\r|\n]/',
     ];
 
